@@ -4,7 +4,7 @@ Donate link: http://mte90.net
 Tags: mobile, bookmark, firefox os, firefox, open web apps, manifest.webapp  
 Requires at least: 3.8  
 Tested up to: 3.8  
-Stable tag: 1.0.0  
+Stable tag: 1.0.1  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -17,7 +17,9 @@ The minimum size for a site for the Firefox OS devices is 320x480!
 
 Demo: [Mte90.Net](http://mte90.net)
 
-Firefox Marketplace: Waiting the approval
+Firefox Marketplace: [https://marketplace.firefox.com/app/mte90net](https://marketplace.firefox.com/app/mte90net)
+
+Github: [https://github.com/Mte90/Firefox-OS-Bookmark-for-Wordpress](https://github.com/Mte90/Firefox-OS-Bookmark-for-Wordpress)
 
 = Features =
 
@@ -25,7 +27,7 @@ Firefox Marketplace: Waiting the approval
 * Icons support
 * MultiSite support
 * Manifest support for multilanguage
-* Popup installation (settings)
+* Native Popup installation (settings)
 
 = Upload on Firefox Marketplace =
 
@@ -62,7 +64,9 @@ Firefox Marketplace: Waiting the approval
 
 = 1.0.1 =
 * Better readme
-* Fix for not include the plugin file by other script
+* Added link to the example app in the Firefox Marketplace (yes now are approved!)
+* [Fix] Not include the plugin file by other scripts
+* [Enhancement] New code for insert the target attribute on extern links
 
 = 1.0 =
 * First Release
