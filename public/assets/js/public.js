@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
       var now = new Date;
       now.setDate(now.getDate() + 30);
       document.cookie = 'appTime=false; expires=' + now.toGMTString();
-      self.close();
+      self.teardown();
     };
 
     this.installButton = document.createElement('button');
@@ -123,6 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     this.installButton.onclick = function() {
       var checkIfInstalled = navigator.mozApps.getSelf();
+      self.teardown();
       checkIfInstalled.onsuccess = function() {
         if (!checkIfInstalled.result) {
           var now = new Date;
@@ -130,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function() {
           m_app.onsuccess = function(data) {
             now.setDate(now.getDate() + 365);
             document.cookie = 'appTime=false; expires=' + now.toGMTString();
-            self.close();
           };
           m_app.onerror = function() {
             now.setDate(now.getDate() + 30);
@@ -138,6 +138,9 @@ document.addEventListener("DOMContentLoaded", function() {
             document.cookie = 'appTime=false; expires=' + now.toGMTString();
           };
         }
+      };
+      checkIfInstalled.onerror = function() {
+        console.log("Check install failed\n\n:" + checkIfInstalled.error.name);
       };
     };
 
@@ -149,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
     this.isOpen = false;
   };
 
-  Modal.prototype.open = function(callback) {
+  Modal.prototype.open = function() {
     if (this.isOpen) {
       return;
     }
@@ -161,20 +164,12 @@ document.addEventListener("DOMContentLoaded", function() {
     this.modalWindow.focus();
 
     this.isOpen = true;
-
-    if (callback) {
-      callback.call(this);
-    }
   };
 
-  Modal.prototype.close = function(callback) {
+  Modal.prototype.close = function() {
     this.target.removeChild(this.modalWindow);
     this.target.removeChild(this.overlay);
     this.isOpen = false;
-
-    if (callback) {
-      callback.call(this);
-    }
   };
 
   Modal.prototype.teardown = function() {
