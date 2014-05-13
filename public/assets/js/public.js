@@ -1,16 +1,16 @@
-function load_manifest() {
-  //Check with cookie if the alert was showed for not annoying the user
-  if (document.cookie.replace(/(?:(?:^|.*;\s*)appTime\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "false") {
-    new Modal(document.body).open();
-  }
-}
-
 //Based on 
 //https://github.com/digitarald/chromeless-external-links-snippet/
 document.addEventListener("DOMContentLoaded", function() {
-// Only enable for chromeless window
+  function load_manifest() {
+    //Check with cookie if the alert was showed for not annoying the user
+    if (document.cookie.replace(/(?:(?:^|.*;\s*)appTime\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "false") {
+      new Modal(document.body).open();
+    }
+  }
+
+  // Only enable for chromeless window
   if (locationbar.visible) {
-    if (parseInt(ffos_bookmark.ffos) === 1 && !!"mozApps" in navigator && navigator.userAgent.indexOf("Mobile") > -1) {
+    if (parseInt(ffos_bookmark.ffos) === 1 && navigator.userAgent.indexOf("Firefox") > -1 && navigator.userAgent.indexOf("Mobile") > -1) {
       load_manifest();
     } else if (parseInt(ffos_bookmark.fffa) === 1 && navigator.userAgent.indexOf('Firefox') > -1 && navigator.userAgent.indexOf("Android") > -1) {
       load_manifest();
@@ -20,17 +20,17 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
-// Click event handler
+  // Click event handler
   var handleClickEvent = function(evt) {
-// Only external links allowed
-// Add target when no named target given
+    // Only external links allowed
+    // Add target when no named target given
     var target = evt.target.getAttribute('target');
     if (!target || target.substr(0, 1) === '_') {
       evt.target.setAttribute('target', '_blank');
     }
   };
-// Delegate all clicks on document body
-// Selector matches external links, but allows https/http switching
+  // Delegate all clicks on document body
+  // Selector matches external links, but allows https/http switching
   var _link = document.querySelectorAll("a[href^='http']:not([href*='://" + location.host + "']):not([target='_blank'])");
   for (var _i = 0; _i < _link.length; _i++) {
     _link[_i].addEventListener('click', handleClickEvent, false);
@@ -41,18 +41,15 @@ document.addEventListener("DOMContentLoaded", function() {
 (function(name, context, definition) {
   if (typeof define === 'function' && define.amd) {
     define(definition);
-  }
-  else if (typeof module !== 'undefined' && module.exports) {
+  } else if (typeof module !== 'undefined' && module.exports) {
     module.exports = definition();
-  }
-  else {
+  } else {
     context[name] = definition();
   }
 })('Modal', this, function() {
 
   var Modal = function(element) {
     this.target = element;
-
     if (!this.isOpen) {
       this._init();
     }
@@ -108,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
     this.closeButton.onclick = function() {
       var now = new Date;
       now.setDate(now.getDate() + 30);
-      document.cookie = 'appTime=false; expires=' + now.toGMTString();
+      document.cookie = 'appTime=false; expires=' + now.toGMTString() + '; path=/';
       self.teardown();
     };
 
@@ -130,12 +127,12 @@ document.addEventListener("DOMContentLoaded", function() {
           var m_app = navigator.mozApps.install(ffos_bookmark.host + '/manifest.webapp');
           m_app.onsuccess = function(data) {
             now.setDate(now.getDate() + 365);
-            document.cookie = 'appTime=false; expires=' + now.toGMTString();
+            document.cookie = 'appTime=false; expires=' + now.toGMTString() + '; path=/';
           };
           m_app.onerror = function() {
             now.setDate(now.getDate() + 30);
             console.log("Install failed\n\n:" + m_app.error.name);
-            document.cookie = 'appTime=false; expires=' + now.toGMTString();
+            document.cookie = 'appTime=false; expires=' + now.toGMTString() + '; path=/';
           };
         }
       };
