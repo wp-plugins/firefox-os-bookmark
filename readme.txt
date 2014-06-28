@@ -4,7 +4,7 @@ Donate link: http://mte90.net
 Tags: mobile, bookmark, firefox os, firefox, open web app, manifest.webapp, webapp, firefox for android  
 Requires at least: 3.8  
 Tested up to: 3.9  
-Stable tag: 1.1.2  
+Stable tag: 1.1.3  
 License: GPLv2 or later  
 License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -62,6 +62,9 @@ Github: [https://github.com/Mte90/Firefox-OS-Bookmark-for-Wordpress](https://git
 7. Firefox for Android screen 
 
 == Changelog ==
+
+= 1.1.3 =
+* Little but important fix
 
 = 1.1.2 =
 * [Enhancement] Little optimization of js modal
